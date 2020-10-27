@@ -1,44 +1,141 @@
 <div class="card border-dark">
-    <div class="card-header text-center main-header text-white">VIEW ISSUE</div>
-    <div class="card-body">
+  <div class="card-header text-center main-header text-white">VIEW ISSUE</div>
+  <div class="card-body">
     <div class="row mb-4">
-  
+
       <div class="col-md-12">
         <div class="card border-0 rounded-0">
-           <div class="card-body">
-            <div class="table-responsive-md">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Token No</th>
-                    <th scope="col">location code</th>
-                    <th scope="col">Project</th>
-                    <th scope="col">Project Module</th>
-                    <th scope="col">Project Problem Statment</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Attachment</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let ps of assignedProblemStatement let i = index">
-                    <td><small>{{i+1}}</small></td>
-                    <td><small>{{ps.tokenNumber}}</small></td>
-                    <td><small>{{ps.locationCode}}</small></td>
-                    <td><small>{{ps.projectName}}</small></td>
-                    <td><small>{{ps.projectModule}}</small></td>
-                    <td><small>{{ps.problemStatement}}</small></td>
-                    <td><span *ngIf="ps.status==='COMPLETED'" class="badge badge-success rounded-0 p-1">{{ps.status}}</span><span *ngIf="ps.status==='PENDING'" class="badge badge-danger rounded-0 p-1">{{ps.status}}</span></td>
-                    <td><button class="btn btn-info btn-sm">view</button></td>            
-                  </tr>
-                </tbody>
-              </table>
+          <div *ngIf="! viewToggle">
+            <div class="card-title mb-1 p-3 mt-5 text-center">
+              <h5>List of issues lodgged by {{username}} , {{name}}</h5>
             </div>
-  
+            <nav class="navbar">
+
+              <!-- <th>Search by</th>
+              
+                <select class="form-control" name="problemStatement" formControlName="projectProblemStatement" required>
+                  <option value="" disabled>Select To Search</option>
+                  <option [value]="tokenNumber">Token number</option>
+                  <option [value]="" *ngIf="isOther">Others</option>
+                </select>
+
+ -->
+
+              <input type="text" class="form-control" name="tokenNumber" [(ngModel)]="tokenNumber"
+                (ngModelChange)="search()" placeholder="Search by Token-Number here">
+            </nav>
+            <div class="card-body">
+              <div class="table-responsive-md">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col"(click)="sort(tokenNumber)">Token No&nbsp;<i class="fa fa-sort"></i></th>
+                      <th scope="col"(click)="sort(locationCode)">location code</th>
+                      <th scope="col"(click)="sort(projectName)">Project</th>
+                      <th scope="col"(click)="sort(projectModule)">Project Module</th>
+                      <th scope="col"(click)="sort(problemStatement)">Project Problem Statment</th>
+                      <th scope="col"(click)="sort(status)">Status</th>
+                      <th scope="col">Attachment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+
+                    <tr
+                      *ngFor="let ps of assignedProblemStatement |
+                    paginate: {id:'paging_issues',itemsPerPage:5,currentPage: page,totalItems:total_issues};orderBy : key;let i = index">
+
+                      <td><small>{{i+1}}</small></td>
+                      <td><small>{{ps.tokenNumber}}</small></td>
+                      <td><small>{{ps.locationCode}}</small></td>
+                      <td><small>{{ps.projectName}}</small></td>
+                      <td><small>{{ps.projectModule}}</small></td>
+                      <td><small>{{ps.problemStatement}}</small></td>
+                      <td><span *ngIf="ps.status==='COMPLETED'"
+                          class="badge badge-success rounded-0 p-1">{{ps.status}}</span><span
+                          *ngIf="ps.status==='PENDING'" class="badge badge-danger rounded-0 p-1">{{ps.status}}</span>
+                      </td>
+                      <td><button class="btn btn-info btn-sm" (click)="onclickShowIssueDetails(ps)">view</button></td>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls id="paging_issues" maxSize="5" directionLinks="true" (pageChange)="page=$event">
+                </pagination-controls>
+              </div>
+            </div>
+
           </div>
         </div>
-  
+
       </div>
     </div>
-    </div>
   </div>
+
+
+  <div class="card border-0 rounded-0">
+
+    <form>
+
+      <!-- Code from oem starts here-->
+      <div *ngIf="viewToggle">
+        <div class="card">
+
+          <div class="card-title mb-1 p-3 mt-5 text-center">
+            <h5> Details of Issue -Number : {{Selectedrow.tokenNumber}}</h5>
+          </div>
+
+
+          <div class="card-block">
+            <div class="m-b-20 table-responsive">
+
+              <table class="table table-bordered" id="myTable1">
+                <tr>
+                  <th>Token-Number</th>
+                  <td colspan='3'>{{Selectedrow.tokenNumber}}</td>
+                </tr>
+
+                <tr>
+                  <th>Project-name</th>
+                  <td>{{Selectedrow.projectName}}</td>
+                  <th>Module-name</th>
+                  <td>{{Selectedrow.projectModule}}</td>
+                </tr>
+                <tr>
+                  <th>Problem-Statement</th>
+                  <td>{{Selectedrow.problemStatement}}</td>
+                  <th>Current-status</th>
+                  <td>{{Selectedrow.status}}</td>
+                </tr>
+                <tr>
+                  <th>Issue-Submitted-on</th>
+                  <td>{{Selectedrow.createdOn}}</td>
+                  <th>Pending at</th>
+                  <td>{{Selectedrow.assignedName}}</td>
+                </tr>
+                <tr>
+                  <th>Issue-Description</th>
+                  <td colspan='3'>{{Selectedrow.description}}</td>
+                </tr>
+
+
+
+              </table>
+
+
+
+              <div class="row form-group">
+                <div class="col-md-12 text-center">
+                  <button class="btn btn-primary" (click)="BacktovViewissueWindow()">Back</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Code from oem starts here-->
+    </form>
+  </div>
+</div>

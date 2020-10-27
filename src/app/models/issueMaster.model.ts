@@ -5,6 +5,7 @@ export class IssueMaster{
   public locationCode: string;
   public locationName: string;
   public projectName: string;
+  public officeType:string;
   public projectModule: string;
   public problemStatement: string;
   public description: string;
@@ -26,6 +27,17 @@ export class IssueMaster{
     return this.projectName;
   }
 
+
+
+  getOfficeType():string{
+    return this.officeType;
+  }
+
+  setOfficeType(officeType:string){
+    this.officeType = officeType;
+  }
+
+  
   setProjectModule(projectModule:string){
     this.projectModule = projectModule;
 

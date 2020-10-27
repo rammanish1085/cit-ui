@@ -15,6 +15,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ViewIssueComponent } from './view-issue/view-issue.component';
 import { TrackIssueComponent } from './track-issue/track-issue.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Pipe, PipeTransform } from '@angular/core';
+
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
+
 
 
 
@@ -27,7 +33,10 @@ import { TrackIssueComponent } from './track-issue/track-issue.component';
     FormsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule
+
   ]
 })
 export class OicModule { }

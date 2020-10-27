@@ -36,6 +36,8 @@ export class AddIssueComponent implements OnInit {
 
   locationName: string;
 
+  Office_type:string;
+
   name: string;
 
   moduleList: any;
@@ -70,6 +72,8 @@ export class AddIssueComponent implements OnInit {
     this.name = this.loggedInUser.getName();
     this.locationCode = this.loggedInUser.getLocationCode();
     this.locationName = this.loggedInUser.getLocationShortName();
+    this.Office_type = this.loggedInUser.getOfficeType();
+    console.log(this.Office_type);
     console.log(this.loggedInUser);
     this.getOicProject();
     this.getOtherProject();
@@ -187,6 +191,7 @@ export class AddIssueComponent implements OnInit {
     this.issueMasterModel.setProjectName(this.issueMasterForm.value.projectName);
     this.issueMasterModel.setProjectModule(this.issueMasterForm.value.projectModule.projectModule);
     this.issueMasterModel.setDescription(this.issueMasterForm.value.description);
+    this.issueMasterModel.setOfficeType(this.Office_type);
     this.issueMasterModel.setProblemStatement(this.issueMasterForm.value.projectProblemStatement);
 
   }
