@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { OtpService } from './otp.service';
+import { RequestInfoService } from './request-info.service';
 
-describe('OtpService', () => {
-  let service: OtpService;
+describe('RequestInfoService', () => {
+  let service: RequestInfoService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(OtpService);
+    service = TestBed.inject(RequestInfoService);
   });
 
   it('should be created', () => {

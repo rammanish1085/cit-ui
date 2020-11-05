@@ -2,8 +2,7 @@
 <div class="card border-dark">
   <div class="card-header text-center main-header text-white">ADD ISSUE</div>
   <div class="card-body">
-
-   <form [formGroup]="issueMasterForm"  (ngSubmit)="onSubmitIssueMasterForm()">
+     <form [formGroup]="issueMasterForm"  (ngSubmit)="onSubmitIssueMasterForm()">
      <div class="row">
       <div class="col-md-3 mb-4 mt-4" *ngIf="role ==='oic'">
         <div>
@@ -43,7 +42,7 @@
             <option value="" disabled>Select Problem statement</option>
             <option *ngFor="let projectProblemStatment of projectProblemStatmentList" class="form-control form-control-sm">
               {{projectProblemStatment.problemStatement}}</option>
-            <option [value]="others" *ngIf="isOther">Others</option>
+            <option [ngvalue]="others" *ngIf="isOther">Others</option>
           </select>
         </div>
       </div>
@@ -65,10 +64,7 @@
           <label class="form-check-label" for="exampleCheck1">Attachment</label>
         </div>
       </div>
-
-      
-     
-     </div>
+</div>
     
     
      <!--File upload Code End Here  -->
@@ -79,14 +75,14 @@
         <div class="fileinfo mb-3 mt-3">
         
           <div>
-            <small class="mr-4">Maximum 5 file allow</small>
+            <small class="mr-4">Maximum -> 5 file</small>
           </div>
         
           <div>
-            <small class="mr-4">Maximum file size allow 5 Mb</small>
+            <small class="mr-4">Maximum file size -> 1 Mb</small>
           </div>
           <div>
-            <small>Allow file type to upload - [ jpg, pdf ,doc ,xls ] only</small>
+            <small>File type ->[ jpg, pdf ,doc ,xls ] only</small>
           </div>
         </div>
      
@@ -121,8 +117,15 @@
      
 
      </form>
-    
+        
   </div>
  </div>
 
+</div>
+
+<div *ngIf="isProcessing">
+  <div class="form-group d-flex justify-content-center mt-4">
+      <label class="font-weight-bold">Processing....</label>
+      <div class="spinner-border text-info"></div>
+  </div>
 </div>

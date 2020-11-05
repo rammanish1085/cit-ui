@@ -36,7 +36,7 @@ export class AddIssueComponent implements OnInit {
 
   locationName: string;
 
-  Office_type:string;
+  officeType : string;
 
   name: string;
 
@@ -56,6 +56,8 @@ export class AddIssueComponent implements OnInit {
 
   issueMasterForm: FormGroup;
 
+  isProcessing :boolean;
+
   ngOnInit() {
     this.issueMasterForm = new FormGroup({
       projectName: new FormControl('', Validators.required),
@@ -72,8 +74,7 @@ export class AddIssueComponent implements OnInit {
     this.name = this.loggedInUser.getName();
     this.locationCode = this.loggedInUser.getLocationCode();
     this.locationName = this.loggedInUser.getLocationShortName();
-    this.Office_type = this.loggedInUser.getOfficeType();
-    console.log(this.Office_type);
+    this.officeType = this.loggedInUser.getOfficeType();
     console.log(this.loggedInUser);
     this.getOicProject();
     this.getOtherProject();
@@ -169,17 +170,26 @@ export class AddIssueComponent implements OnInit {
 
   onSubmitIssueMasterForm() {
 
+    this.isProcessing = true;
+
     this.preparedIssueMasterObject();
 
     console.log("Object  prepared received");
     console.log(this.issueMasterModel);
     this.issueMasterService.insertIssueMaster(this.issueMasterModel, this.myFiles).subscribe(success => {
       if (success.status === 201) {
+        this.isProcessing = false;
         this.resetIssueMasterForm();
         this.tokenId = success.body;
         this.globalutilityService.successAlertMessage("Issue Created Successfully With Id:" + this.tokenId.tokenNumber);
       }
-    }, error => { })
+    }, error => {
+      if(error.status ===417){
+        this.isProcessing = false;
+        this.globalutilityService.errorAlertMessage("Unable to create issue");
+        this.resetIssueMasterForm();
+      }
+     })
   }
 
   private preparedIssueMasterObject() {
@@ -188,10 +198,11 @@ export class AddIssueComponent implements OnInit {
     this.issueMasterModel.setName(this.name);
     this.issueMasterModel.setLocationCode(this.locationCode);
     this.issueMasterModel.setLocationName(this.locationName);
+    this.issueMasterModel.setOfficeType(this.officeType);
     this.issueMasterModel.setProjectName(this.issueMasterForm.value.projectName);
     this.issueMasterModel.setProjectModule(this.issueMasterForm.value.projectModule.projectModule);
     this.issueMasterModel.setDescription(this.issueMasterForm.value.description);
-    this.issueMasterModel.setOfficeType(this.Office_type);
+   
     this.issueMasterModel.setProblemStatement(this.issueMasterForm.value.projectProblemStatement);
 
   }
@@ -216,18 +227,20 @@ export class AddIssueComponent implements OnInit {
 
     console.log(size)
 
-    if (size > 5000000) {
-      this.globalutilityService.errorAlertMessage("File Size greater 5 Mb");
-    }
-    if(event.target.files.length>5){
-      this.globalutilityService.errorAlertMessage("Maximum 5 File Allow to upload");
-    } 
-     else {
+    if (size < 1000000) 
+    { 
+     if(event.target.files.length <=5){
+           
       for (var i = 0; i < event.target.files.length; i++) {
         this.myFiles.push(event.target.files[i]);
       }
+    } else{
+        this.globalutilityService.errorAlertMessage("Maximum 5 File Allow to upload");
+      }
+
+    }else{
+    this.globalutilityService.errorAlertMessage("File Size greater 1 Mb");
     }
-    console.log(this.myFiles);
 
   }
 

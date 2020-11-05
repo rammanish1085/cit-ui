@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   loginErrorText;
   loggedUser: User;
   isLogIn: boolean = true;
-  timeLeft: number = 60;
+  timeLeft: number = 120;
   interval;
   isResend: boolean;
   isOtpResend: boolean;
@@ -117,14 +117,14 @@ export class LoginComponent implements OnInit {
 
     }, error => {
       if (error.status === 400) {
-        this.globalutilityService.alertWithSuccess("Enter OTP is not valid !!")
+        this.globalutilityService.successAlertMessage("Enter OTP is not valid !!")
         localStorage.setItem("key", "FAIL");
       } else if (error.status === 401) {
         localStorage.setItem("key", "FAIL");
-        this.globalutilityService.alertWithSuccess("OTP has been expired !!");
+        this.globalutilityService.successAlertMessage("OTP has been expired !!");
       } else if (error.status === 417) {
         localStorage.setItem("key", "FAIL");
-        this.globalutilityService.alertWithSuccess("Enter OTP is not matched !!");
+        this.globalutilityService.successAlertMessage("Enter OTP is not matched !!");
       }
     })
   }
@@ -138,7 +138,7 @@ export class LoginComponent implements OnInit {
         console.log("OTP Generated Successfully");
         this.isOtpResend = false;
         this.isResend = false;
-        this.timeLeft = 60;
+        this.timeLeft = 120;
         this.durationMillisecond = 10000;
         this.startTimer();
 

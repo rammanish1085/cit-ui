@@ -1,6 +1,6 @@
 
 #showcase{
-    background-image: url('src/assets/bg5.png');
+    background-image: url('src/assets/img/login.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -21,6 +21,9 @@
    }
 .input-group-text {
     color: #a85b0c;
+}
+.header{
+font-size:large;
 }
 
 

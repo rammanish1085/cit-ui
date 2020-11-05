@@ -1,11 +1,12 @@
-export class IssueMaster{
-   
+export class IssueMaster {
+
   public username: string;
   public name: string;
   public locationCode: string;
   public locationName: string;
+  public officeType: string;
   public projectName: string;
-  public officeType:string;
+
   public projectModule: string;
   public problemStatement: string;
   public description: string;
@@ -19,68 +20,71 @@ export class IssueMaster{
 
   }
 
-  setProjectName(projectName:string){
+  setProjectName(projectName: string) {
     this.projectName = projectName;
   }
 
-  getProjectName():string{
+  getProjectName(): string {
     return this.projectName;
   }
 
 
 
-  getOfficeType():string{
+  getOfficeType(): string {
     return this.officeType;
   }
 
-  setOfficeType(officeType:string){
+  setOfficeType(officeType: string) {
     this.officeType = officeType;
   }
 
-  
-  setProjectModule(projectModule:string){
+
+  setProjectModule(projectModule: string) {
     this.projectModule = projectModule;
 
   }
 
-  setProblemStatement(problemStatement:string){
-     this.problemStatement = problemStatement;
+  setProblemStatement(problemStatement: string) {
+    this.problemStatement = problemStatement;
   }
 
-  getProblemStatement():string{
+  getProblemStatement(): string {
     return this.problemStatement;
   }
 
-  setDescription(description:string){
-      this.description = description;
+  setDescription(description: string) {
+    this.description = description;
   }
-  getDescription():string{
+  getDescription(): string {
     return this.description;
   }
 
-    setUsername(username : string){
-        this.username = username;
-    }
+  setUsername(username: string) {
+    this.username = username;
+  }
 
-    getUsername() : string{
-        return this.username
-    }
+  getUsername(): string {
+    return this.username
+  }
 
-    setLocationCode(locationCode : string){
-      this.locationCode = locationCode;
-    }
+  setLocationCode(locationCode: string) {
+    this.locationCode = locationCode;
+  }
 
-    getLocationCode() : string{
-      return this.locationCode;
-    }
+  getLocationCode(): string {
+    return this.locationCode;
+  }
 
-    setLocationName(locationName:string){
-      this.locationName = locationName;
-    }
+  setLocationName(locationName: string) {
+    this.locationName = locationName;
+  }
 
-    getLocationName():string{
-      return this.locationName;
-    }
+  getLocationName(): string {
+    return this.locationName;
+  }
 
 
 }
+  
+
+
