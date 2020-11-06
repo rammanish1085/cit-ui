@@ -4,16 +4,17 @@ import { AuthorizationService } from 'src/app/services/authorization-service/aut
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: 'app-nav-bar',
+  templateUrl: './nav-bar.component.html',
+  styleUrls: ['./nav-bar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavBarComponent implements OnInit {
 
   public loggedInUser: User;
-  
-  constructor(private authorizationService: AuthorizationService,private router: Router) {
-  }
+
+  constructor(private authorizationService: AuthorizationService,private router: Router) { }
+
+ 
 
   ngOnInit() {
     console.log("Initialising Navbar");
@@ -27,10 +28,12 @@ export class NavbarComponent implements OnInit {
     this.authorizationService.logout();
   }
 
-  settingClicked() {
-    console.log("setting clicked from ngb-navbar");
-    this.router.navigate(['setting']);
-    //,{ queryParams: { source: this.router.url }, queryParamsHandling: "merge" }
+  BackClicked(){
+    console.log("backtohome clicked from ngb-navbar");
+    this.router.navigate(['oic/home'],{ queryParams: { source: this.router.url }, queryParamsHandling: "merge" });
+    //
+
   }
+
 
 }

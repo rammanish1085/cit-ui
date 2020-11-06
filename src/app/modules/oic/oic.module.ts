@@ -25,7 +25,10 @@ import {LoginModalModule} from 'src/app/modals/login-modal/login-modal.module';
 
 
 @NgModule({
-  declarations: [OicComponent,NavbarComponent,SessionTimerComponent,SidebarComponent, AddUserComponent,FooterComponent, AddIssueComponent, HomeComponent,DashboardComponent, ViewIssueComponent, TrackIssueComponent, RequestNotificationComponent],
+  declarations: [OicComponent,NavbarComponent,SessionTimerComponent
+    ,SidebarComponent, AddUserComponent,FooterComponent, 
+    AddIssueComponent, HomeComponent,DashboardComponent, 
+    ViewIssueComponent, TrackIssueComponent, RequestNotificationComponent],
   imports: [
     CommonModule,
     OicRoutingModule,
